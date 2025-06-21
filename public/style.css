@@ -1,0 +1,44 @@
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: #f9f9f9;
+  margin: 0;
+  padding: 20px;
+  direction: rtl;
+}
+
+.header {
+  background: linear-gradient(to right, #2980b9, #6dd5fa);
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.topnav {
+  background: linear-gradient(to right, #34495e, #2c3e50);
+  color: white;
+  padding: 12px;
+  text-align: center;
+}
+
+.topnav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.85;
+  transform: scale(1.03);
+  transition: all 0.2s ease-in-out;
+}
+    

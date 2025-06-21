@@ -1,0 +1,1736 @@
+<html lang="en">
+<head>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<title>Combined Shop</title>
+<style>
+
+/* تخطيط عام */
+body {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* الشريط الجانبي */
+.sidebar {
+    width: 200px;
+    background-color: #f1f1f1;
+    padding: 20px;
+    height: 100vh;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+.sidebar li {
+    margin-bottom: 15px;
+}
+.sidebar a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* المحتوى الرئيسي */
+.main-content {
+    flex: 1;
+    padding: 20px;
+    background: #f9f9f9;
+}
+
+/* الشريط العلوي */
+.header {
+    background-color: #fff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+}
+.header input[type="search"] {
+    padding: 8px;
+    width: 50%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* بطاقات المنتجات */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+.product {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.product img {
+    max-width: 100%;
+    height: auto;
+}
+
+
+button.add-to-cart { background-color: #28a745; } /* أخضر */
+button.add-product { background-color: #007bff; } /* أزرق */
+button.login-btn, button.register-btn { background-color: #6f42c1; } /* بنفسجي */
+button.checkout-btn { background-color: #fd7e14; } /* برتقالي */
+
+    
+body { font-family: 'Arial', sans-serif; background: #f9f9f9; margin: 0; padding: 20px; direction: rtl; }
+h1 { color: #28a745; }
+nav a { margin: 0 10px; text-decoration: none; color: #007bff; }
+.product { background: #fff; padding: 10px; margin: 10px 0; border-radius: 8px; }
+button { background: #28a745; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; }
+
+    
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    display: flex;
+    overflow-x: auto;
+  }
+  .sidebar ul {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+  .main-content {
+    padding: 10px;
+  }
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header input[type="search"] {
+    width: 100%;
+    margin-top: 10px;
+  }
+  .products-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  }
+}
+
+
+/* Dark Mode Styles */
+.dark-mode {
+  background-color: #121212;
+  color: #f0f0f0;
+}
+.dark-mode .sidebar {
+  background-color: #1e1e1e;
+}
+.dark-mode .main-content {
+  background-color: #1a1a1a;
+}
+.dark-mode .header {
+  background-color: #222;
+}
+.dark-mode .product {
+  background-color: #2c2c2c;
+  color: #fff;
+}
+.dark-mode a {
+  color: #90caf9;
+}
+
+
+/* Hover Effects */
+button:hover {
+  opacity: 0.85;
+  transform: scale(1.03);
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar a:hover {
+  color: #ff5722;
+  transition: color 0.2s ease-in-out;
+  text-decoration: underline;
+}
+
+.product:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  transform: translateY(-5px);
+  transition: all 0.3s ease;
+}
+
+
+.products-grid .product {
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.products-grid .product:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+.products-grid .product h3 {
+  font-size: 18px;
+  color: #2c3e50;
+}
+
+
+html, body {
+  min-height: 100vh;
+  overflow: auto;
+}
+
+.main-content {
+  height: calc(100vh - 60px - 80px); /* خصم ارتفاع الهيدر والتنقل */
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.topnav {
+  height: 60px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.header {
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.dark-mode {
+  background-color: #1e1e1e;
+  color: #e0e0e0;
+}
+.dark-mode section {
+  background-color: #2c2c2c;
+  color: white;
+}
+.dark-mode input, .dark-mode textarea, .dark-mode button {
+  background-color: #444;
+  color: white;
+  border: 1px solid #666;
+}
+
+@media (min-width: 768px) {
+  #whatsapp-float {
+    display: none;
+  }
+}
+
+#new-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+#new-products .product {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 0 6px rgba(0,0,0,0.06);
+}
+
+/* ✅ ستايل نافذة التفاصيل */
+.modal {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center;
+  z-index: 9999;
+}
+.modal-content {
+  background: #fff; padding: 20px; border-radius: 12px; max-width: 400px; width: 90%;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+
+/* ✅ تحسين واجهة الجوال */
+@media (max-width: 600px) {
+  button {
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 14px;
+  }
+  .header h1 {
+    font-size: 20px;
+  }
+  .product img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+</style>
+<!-- Firebase App (the core Firebase SDK) -->
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js">
+function loginWithFacebook() {
+  const provider = new firebase.auth.FacebookAuthProvider();
+  firebase.auth().signInWithPopup(provider)
+    .then((result) => {
+      const user = result.user;
+      alert("مرحباً " + user.displayName);
+    })
+    .catch((error) => {
+      console.error("فشل تسجيل الدخول:", error);
+    });
+}
+
+</script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database.js"></script>
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBGJ4yTFdFsgcs46fb4Uy96O2i8Az1kbus",
+    authDomain: "electronicsmarket-95db5.firebaseapp.com",
+    projectId: "electronicsmarket-95db5",
+    storageBucket: "electronicsmarket-95db5.firebasestorage.app",
+    messagingSenderId: "559298034101",
+    appId: "1:559298034101:web:df162b5a24bf974ede01fc",
+    measurementId: "G-G0G9ZHL5Z3"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.database();
+</script>
+<style>
+    body { font-family: Arial; padding: 20px; background: #f9f9f9; }
+    input, textarea, button { margin: 10px 0; padding: 10px; width: 100%; }
+    .product { padding: 10px; background: #fff; border: 1px solid #ccc; margin: 10px 0; border-radius: 5px; }
+  </style><link href="https://fonts.googleapis.com/css2?family=Tajawal&amp;display=swap" rel="stylesheet"/><style>
+body {
+  font-family: 'Tajawal', sans-serif;
+  background-color: #f4f6f8;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  background: #fff;
+  margin: 20px auto;
+  padding: 25px;
+  border-radius: 12px;
+  max-width: 900px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+h2 {
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+input, textarea, button {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.product {
+  background: #fefefe;
+  padding: 15px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  border-radius: 10px;
+}
+</style>
+<style>
+body {
+  transition: background-color 0.5s ease, color 0.5s ease, direction 0.5s ease;
+}
+.dark-mode {
+  background-color: #121212 !important;
+  color: #f1f1f1 !important;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+</style>
+</head>
+<body style="; display: block; overflow-y: auto; height: auto;">
+<div id="admin-welcome" style="display: none; text-align: center; background: #d1ecf1; color: #0c5460;
+padding: 15px; margin: 20px; border-radius: 10px; font-weight: bold; font-size: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+  مرحباً بك، مسؤول المتجر!
+</div>
+<!-- Google I/O Badge: فقط للمسؤول -->
+<div id="io-badge" style="display:none; position: fixed; top: 10px; left: 10px; z-index: 10000;">
+<img alt="Google I/O 2025" src="https://storage.googleapis.com/io-2025-assets/badge.png" style="width: 60px; height: 60px; border-radius: 50%; box-shadow: 0 0 8px rgba(0,0,0,0.2);" title="مشارك في Google I/O 2025"/>
+</div>
+<div style="display: flex; gap: 10px; justify-content: center; padding: 10px 20px;">
+<button onclick="toggleLang()" style="flex: 1; padding: 12px 0; border-radius: 10px; font-size: 15px; background-color: #007bff; color: white; border: none;; font-size: 12px; padding: 6px 10px">
+    🌐 اللغة
+  </button>
+<button onclick="toggleDarkMode()" style="flex: 1; padding: 12px 0; border-radius: 10px; font-size: 15px; background-color: #343a40; color: white; border: none;; font-size: 12px; padding: 6px 10px">
+    🌙 الوضع الليلي
+  </button>
+<button onclick="resetSettings()" style="flex: 1; padding: 12px 0; border-radius: 10px; font-size: 15px; background-color: #dc3545; color: white; border: none;; font-size: 12px; padding: 6px 10px">
+    ♻️ إعادة تعيين
+  </button>
+</div>
+<div class="topnav" style="width: 100%; background: linear-gradient(to right, #34495e, #2c3e50); color: white; padding: 12px 10px; display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; position: sticky; top: 0; z-index: 1000;">
+<a href="#index" style="color: white; text-decoration: none;">🏠 الرئيسية</a>
+<a href="#products" style="color: white; text-decoration: none;">🛒 المنتجات</a>
+<a href="#cart" style="color: white; text-decoration: none;">🛍️ عربة التسوق</a>
+<a href="#checkout" style="color: white; text-decoration: none;">💳 الدفع</a>
+<a href="#contact" style="color: white; text-decoration: none;">☎️ اتصل بنا</a>
+<a href="#faq" style="color: white; text-decoration: none;">❓ الأسئلة</a>
+<a href="javascript:void(0);" onclick="scrollToSection('login')" style="color: white; text-decoration: none;">🔐 دخول</a>
+<a href="javascript:void(0);" onclick="scrollToSection('register')" style="color: white; text-decoration: none;">➕ تسجيل</a>
+<a href="#admin" style="color: white; text-decoration: none;">⚙️ الإدارة</a>
+<a href="#orders" style="color: white; text-decoration: none;">📦 الطلبات</a>
+<a href="#profile" style="color: white; text-decoration: none;">👤 ملفي</a>
+</div>
+<div class="header" style=" background: linear-gradient(to right, #2980b9, #6dd5fa); padding: 20px; color: white;">
+<h1 style="margin:0;">مرحباً بك في المتجر</h1>
+<p style="margin:5px 0;">أفضل المنتجات بأجمل تصميم</p>
+<button class="login-btn" onclick="toggleAddProduct()" style="background-color:#8e44ad; color:white; padding:10px 20px; border:none; border-radius:6px; cursor:pointer;; font-size: 12px; padding: 6px 10px">➕ أضف منتج جديد</button>
+</div>
+<script>
+  function logoutUser() {
+    firebase.auth().signOut().then(() => {
+      alert("تم تسجيل الخروج");
+      location.reload();
+    }).catch((error) => {
+      console.error("فشل تسجيل الخروج", error);
+    });
+  }
+
+</script>
+<script>
+  let isArabic = true;
+
+  function toggleLang() {
+    isArabic = !isArabic;
+    document.body.dir = isArabic ? "rtl" : "ltr";
+    document.querySelectorAll('[data-ar]').forEach(el => {
+      el.innerText = isArabic ? el.dataset.ar : el.dataset.en;
+    });
+  }
+
+  
+function deleteProduct(id) {
+  if (confirm("هل أنت متأكد من حذف المنتج؟")) {
+    db.ref('products/' + id).remove().then(loadProducts);
+  }
+}
+
+function editProduct(id) {
+  db.ref('products/' + id).once('value', snapshot => {
+    const p = snapshot.val();
+    document.getElementById('product-name').value = p.name;
+    document.getElementById('product-description').value = p.description;
+    document.getElementById('product-price').value = p.price;
+    document.getElementById('product-image').value = p.image;
+    document.getElementById('add-product-form').onsubmit = function(e) {
+      e.preventDefault();
+      const updated = {
+        name: document.getElementById('product-name').value,
+        description: document.getElementById('product-description').value,
+        price: document.getElementById('product-price').value,
+        image: document.getElementById('product-image').value
+      };
+      db.ref('products/' + id).set(updated).then(() => {
+        loadProducts();
+        this.reset();
+        this.onsubmit = defaultAddHandler;
+      });
+    };
+  });
+}
+
+
+const defaultAddHandler = function(e) {
+  e.preventDefault();
+  const name = document.getElementById('product-name').value;
+  const description = document.getElementById('product-description').value;
+  const price = document.getElementById('product-price').value;
+  const image = document.getElementById('product-image').value;
+  const newProduct = { name, description, price, image };
+
+  if (navigator.onLine) {
+    db.ref('products').push(newProduct, loadProducts);
+  } else {
+    let offlineList = JSON.parse(localStorage.getItem("offline_products") || "[]");
+    offlineList.push(newProduct);
+    localStorage.setItem("offline_products", JSON.stringify(offlineList));
+    alert("تم حفظ المنتج مؤقتًا بدون إنترنت.");
+    loadProducts();
+  }
+  e.target.reset();
+};
+
+  db.ref('products').push(newProduct, loadProducts);
+  this.reset();
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadProducts();
+  const form = document.getElementById('add-product-form');
+  if (form) {
+    form.onsubmit = defaultAddHandler;
+  }
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const lang = navigator.language || navigator.userLanguage;
+  if (lang.startsWith("en")) {
+    isArabic = false;
+    toggleLang();
+  }
+});
+</script>
+<script>
+  );
+  }
+
+  let isArabic = true;
+
+  
+function deleteProduct(id) {
+  if (confirm("هل أنت متأكد من حذف المنتج؟")) {
+    db.ref('products/' + id).remove().then(loadProducts);
+  }
+}
+
+function editProduct(id) {
+  db.ref('products/' + id).once('value', snapshot => {
+    const p = snapshot.val();
+    document.getElementById('product-name').value = p.name;
+    document.getElementById('product-description').value = p.description;
+    document.getElementById('product-price').value = p.price;
+    document.getElementById('product-image').value = p.image;
+    document.getElementById('add-product-form').onsubmit = function(e) {
+      e.preventDefault();
+      const updated = {
+        name: document.getElementById('product-name').value,
+        description: document.getElementById('product-description').value,
+        price: document.getElementById('product-price').value,
+        image: document.getElementById('product-image').value
+      };
+      db.ref('products/' + id).set(updated).then(() => {
+        loadProducts();
+        this.reset();
+        this.onsubmit = defaultAddHandler;
+      });
+    };
+  });
+}
+
+
+const defaultAddHandler = function(e) {
+  e.preventDefault();
+  const name = document.getElementById('product-name').value;
+  const description = document.getElementById('product-description').value;
+  const price = document.getElementById('product-price').value;
+  const image = document.getElementById('product-image').value;
+  const newProduct = { name, description, price, image };
+
+  if (navigator.onLine) {
+    db.ref('products').push(newProduct, loadProducts);
+  } else {
+    let offlineList = JSON.parse(localStorage.getItem("offline_products") || "[]");
+    offlineList.push(newProduct);
+    localStorage.setItem("offline_products", JSON.stringify(offlineList));
+    alert("تم حفظ المنتج مؤقتًا بدون إنترنت.");
+    loadProducts();
+  }
+  e.target.reset();
+};
+
+  db.ref('products').push(newProduct, loadProducts);
+  this.reset();
+};
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadProducts();
+  const form = document.getElementById('add-product-form');
+  if (form) {
+    form.onsubmit = defaultAddHandler;
+  }
+});
+
+
+</script>
+<script>
+  function scrollToForm() {
+    const form = document.getElementById("add-product-form");
+    if (form) {
+      form.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+</script>
+<script>
+  function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+</script>
+<!-- تحقق المشرفين مؤقتاً معطّل -->
+<section id="products" style="display:block; padding:30px;">
+<h2 data-ar="إدارة المنتجات" data-en="Manage Products">إدارة المنتجات</h2>
+<div id="add-product-box" style="display:none; margin-top: 20px;"><div id="product-form">
+<input id="name" placeholder="اسم المنتج" type="text"/>
+<textarea id="desc" placeholder="وصف المنتج"></textarea>
+<input id="price" placeholder="السعر" type="number"/>
+<input id="image" type="file"/>
+<button onclick="addProduct()" style=" font-size: 12px; padding: 6px 10px">➕ حفظ المنتج</button>
+</div>
+<button id="logout-btn" onclick="logoutUser()" style="display:none; margin-top:10px;; font-size: 12px; padding: 6px 10px">تسجيل الخروج</button>
+<div id="products-list" style="margin-top:30px;">
+<!-- ⭐ التقييمات -->
+<hr>
+<div id="reviews-container" style="margin-top: 10px;"></div>
+<form id="review-form" onsubmit="submitReview(event)" style="margin-top: 10px;">
+  <label>⭐ تقييمك:</label>
+  <select id="review-stars">
+    <option value="5">⭐⭐⭐⭐⭐</option>
+    <option value="4">⭐⭐⭐⭐</option>
+    <option value="3">⭐⭐⭐</option>
+    <option value="2">⭐⭐</option>
+    <option value="1">⭐</option>
+  </select>
+  <textarea id="review-comment" placeholder="اكتب رأيك..." style="width:100%; margin-top:8px;"></textarea>
+  <button type="submit" style="margin-top:8px;">إرسال التقييم</button>
+</form>
+
+</div>
+</div></section><script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script><script>
+document.addEventListener("DOMContentLoaded", () => {
+  const links = document.querySelectorAll('a[href^="#"]');
+  const sections = document.querySelectorAll("section");
+
+  function showSection(id) {
+    sections.forEach(section => {
+      section.style.display = (section.id === id) ? "block" : "none";
+    });
+  }
+
+  links.forEach(link => {
+    link.addEventListener("click", e => {
+      const id = link.getAttribute("href").substring(1);
+      if (id) {
+        e.preventDefault();
+        showSection(id);
+      }
+    });
+  });
+
+  showSection("products");
+});
+</script><section id="index" style="display: block; padding: 30px;">
+<h2 data-ar="أهلاً بكم في متجر Hamza Maki" data-en="Welcome to Hamza Maki Store">أهلاً بكم في متجر Hamza Maki</h2>
+<p><span data-ar="اكتشف أفضل المنتجات بأفضل الأسعار." data-en="Discover the best products at the best prices." string="اكتشف أفضل المنتجات بأفضل الأسعار."></span></p>
+<h3 data-ar="المنتجات الجديدة" data-en="New Products">المنتجات الجديدة</h3><div id="new-products" style="margin-top:20px;"></div></section><section id="checkout" style="display: block; padding: 30px;">
+<h2 data-ar="الدفع" data-en="Checkout">الدفع</h2>
+<form onsubmit="loginUser(event)">
+<label><span data-ar="الاسم:" data-en="Name:" string="الاسم:"></span></label><input type="text"/><br/>
+<label><span data-ar="رقم البطاقة:" data-en="Card Number:" string="رقم البطاقة:"></span></label><input type="text"/><br/>
+<label data-ar="رقم الإشعار:" data-en="Notification Number:">رقم الإشعار:</label>
+<input placeholder="0920xxxxxxx" type="text"/>
+<button onclick="submitPayment()" style=" font-size: 12px; padding: 6px 10px" type="button"><span data-ar="إتمام الدفع" data-en="Complete Payment" string="إتمام الدفع"></span></button>
+</form>
+<div class="bank-info" style="margin-top:20px;">
+<p data-ar="التحويل البنكي:" data-en="Bank Transfer:">التحويل البنكي:</p>
+<p data-ar="ECOBANK 32500008740" data-en="ECOBANK 32500008740">ECOBANK 32500008740</p>
+<p data-ar="UBA 70805503685" data-en="UBA 70805503685">UBA 70805503685</p>
+</div>
+<div class="bank-info" style="margin-top:20px;">
+<p data-ar="التحويل البنكي:" data-en="Bank Transfer:">التحويل البنكي:</p>
+<p data-ar="ECOBANK 32500008740" data-en="ECOBANK 32500008740">ECOBANK 32500008740</p>
+<p data-ar="UBA 70805503685" data-en="UBA 70805503685">UBA 70805503685</p>
+<br/>
+<p data-ar="رقم الحساب: 2782663" data-en="Account Number: 2782663">رقم الحساب: 2782663</p>
+<p data-ar="الاسم: محمد يعقوب حسن" data-en="Name: Mohamed Yaqoub Hassan">الاسم: محمد يعقوب حسن</p>
+<p data-ar="رقم الإشعار: 0920646524" data-en="Notification Number: 0920646524">رقم الإشعار: 0920646524</p>
+</div>
+</section><section id="contact" style="display: block; padding: 30px;">
+<h2 data-ar="اتصل بنا" data-en="Contact Us">اتصل بنا</h2>
+<form onsubmit="loginUser(event)">
+<label><span data-ar="اسمك:" data-en="Your Name:" string="اسمك:"></span></label><input type="text"/><br/>
+<label><span data-ar="رسالتك:" data-en="Your Message:" string="رسالتك:"></span></label><textarea></textarea><br/>
+<button style=" font-size: 12px; padding: 6px 10px"><span data-ar="إرسال" data-en="Send" string="إرسال"></span></button>
+</form>
+<div class="support-info" style="margin-top:20px;">
+<p data-ar="للمساعدة، تواصل معنا عبر:" data-en="For help, contact us via:">للمساعدة، تواصل معنا عبر:</p>
+<p data-ar="هاتف: +23599987837" data-en="Phone: +23599987837">هاتف: +23599987837</p>
+<p data-ar="هاتف: +23566687837" data-en="Phone: +23566687837">هاتف: +23566687837</p>
+<p data-ar="بريد إلكتروني: walmacki23@gmail.com" data-en="Email: walmacki23@gmail.com">بريد إلكتروني: walmacki23@gmail.com</p>
+</div>
+<div class="whatsapp-info" style="margin-top:15px;">
+<p data-ar="تواصل معنا عبر واتساب:" data-en="Contact us via WhatsApp:">تواصل معنا عبر واتساب:</p>
+<a href="https://wa.me/23599987837" target="_blank">+23599987837</a><br/>
+<a href="https://wa.me/23566687837" target="_blank">+23566687837</a>
+</div>
+</section><section id="faq" style="display: block; padding: 30px;">
+<h2 data-ar="الأسئلة الشائعة" data-en="FAQ"><span data-ar="الأسئلة الشائعة" data-en="Frequently Asked Questions" string="الأسئلة الشائعة"></span></h2>
+<p><strong><span data-ar="س: كيف أطلب؟" data-en="Q: How do I order?" string="س: كيف أطلب؟"></span></strong><span data-ar="اختر المنتج وأضفه إلى العربة." data-en="Select the product and add it to the cart." string="اختر المنتج وأضفه إلى العربة."></span></p>
+<p><strong><span data-ar="س: طرق الدفع؟" data-en="Q: What are the payment methods?" string="س: طرق الدفع؟"></span></strong><span data-ar="بطاقة أو عند الاستلام." data-en="Card or Cash on Delivery." string="بطاقة أو عند الاستلام."></span></p>
+</section><section id="login" style="display: block; padding: 30px;">
+<h2 data-ar="تسجيل الدخول" data-en="Login"><span data-ar="تسجيل الدخول" data-en="Login" string="تسجيل الدخول"></span></h2>
+<form onsubmit="loginUser(event)">
+<label><span data-ar="البريد الإلكتروني:" data-en="Email:" string="البريد الإلكتروني:"></span></label><input type="email" id="login-email"/><br/>
+<label><span data-ar="كلمة المرور:" data-en="Password:" string="كلمة المرور:"></span></label><input type="password" id="login-pass"/><br/>
+<button type="submit" style=" font-size: 12px; padding: 6px 10px"><span data-ar="دخول" data-en="Login" string="دخول"></span></button>
+</form>
+<div style="text-align:center; margin-top:20px;">
+<p data-ar="أو سجل دخول بواسطة:" data-en="Or login with:">أو سجل دخول بواسطة:</p>
+<button onclick="loginWithGoogle()" style="background:#db4437; color:white; margin:5px;; font-size: 12px; padding: 6px 10px">Google</button>
+<button onclick="loginWithFacebook()" style="background:#3b5998; color:white; margin:5px;; font-size: 12px; padding: 6px 10px">Facebook</button>
+</div>
+</section><section id="register" style="display: block; padding: 30px;">
+<h2 data-ar="تسجيل حساب جديد" data-en="Register"><span data-ar="تسجيل حساب جديد" data-en="Register New Account" string="تسجيل حساب جديد"></span></h2>
+<form onsubmit="loginUser(event)">
+<label><span data-ar="الاسم:" data-en="Name:" string="الاسم:"></span></label><input type="text"/><br/>
+<label>البريد الإلكتروني:</label><input type="email" id="login-email"/><br/>
+<label>كلمة المرور:</label><input type="password" id="login-pass"/><br/>
+<button style=" font-size: 12px; padding: 6px 10px"><span data-ar="تسجيل" data-en="Register" string="تسجيل"></span></button>
+</form>
+</section><section id="admin" style="display: block; padding: 30px;">
+<h2 data-ar="لوحة تحكم الإدارة" data-en="Admin Panel">لوحة تحكم الإدارة</h2>
+<form onsubmit="adminLogin(); return false;">
+<label data-ar="كلمة المرور:" data-en="Password:">كلمة المرور:</label>
+<input id="admin-pass" placeholder="••••••" type="password"/>
+<button data-ar="دخول" data-en="Login" style=" font-size: 12px; padding: 6px 10px" type="submit">دخول</button>
+</form>
+</section><section id="cart" style="display: block; padding: 30px;">
+<h2 data-ar="عربة التسوق" data-en="Shopping Cart"><span data-ar="عربة التسوق" data-en="Shopping Cart" string="عربة التسوق"></span></h2>
+<table border="1" width="100%">
+<tr><th><span data-ar="المنتج" data-en="Product" string="المنتج"></span></th><th><span data-ar="الكمية" data-en="Quantity" string="الكمية"></span></th><th><span data-ar="السعر" data-en="Price" string="السعر"></span></th></tr>
+<tr><td>منتج 1</td><td>2</td><td>40 ريال</td></tr>
+<tr><td>منتج 2</td><td>1</td><td>25 ريال</td></tr>
+</table>
+</section><script>
+let isArabic = true;
+
+);
+}
+</script>
+<script>
+  function submitPayment() {
+    const name = document.querySelector('#checkout input[placeholder="الاسم"]').value;
+    const card = document.querySelector('#checkout input[placeholder="رقم البطاقة"]').value;
+    const notify = document.querySelector('#checkout input[placeholder="0920xxxxxxx"]').value;
+
+    if (!name || !card || !notify) {
+      alert("يرجى تعبئة جميع الحقول");
+      return;
+    }
+
+    firebase.firestore().collection("payments").add({
+      name, card, notify, createdAt: new Date()
+    }).then(() => {
+      alert("تم إرسال بيانات الدفع بنجاح");
+    }).catch(err => {
+      alert("حدث خطأ أثناء الحفظ");
+      console.error(err);
+    });
+  }
+</script>
+<section id="payments" style="display: block; padding: 30px;">
+<h2 data-ar="سجل المدفوعات" data-en="Payment Records">سجل المدفوعات</h2>
+<table border="1" width="100%">
+<thead>
+<tr>
+<th data-ar="الاسم" data-en="Name">الاسم</th>
+<th data-ar="رقم البطاقة" data-en="Card Number">رقم البطاقة</th>
+<th data-ar="رقم الإشعار" data-en="Notification">رقم الإشعار</th>
+<th data-ar="التاريخ" data-en="Date">التاريخ</th>
+</tr>
+</thead>
+<tbody id="payment-records"></tbody>
+</table>
+</section>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const paymentsLink = document.querySelector('a[href="#payments"]');
+  if (paymentsLink) {
+    paymentsLink.addEventListener("click", () => {
+      const tbody = document.getElementById("payment-records");
+      tbody.innerHTML = "";
+      firebase.firestore().collection("payments").orderBy("createdAt", "desc").get().then(snapshot => {
+        snapshot.forEach(doc => {
+          const p = doc.data();
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+            <td>${p.name}</td>
+            <td>${p.card}</td>
+            <td>${p.notify}</td>
+            <td>${p.createdAt ? new Date(p.createdAt.toDate()).toLocaleString() : ""}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      });
+    });
+  }
+});
+</script>
+<script>
+function adminLogin() {
+  const enteredPass = document.getElementById("admin-pass").value;
+  firebase.firestore().collection("settings").doc("admin").get().then(doc => {
+    if (doc.exists && doc.data().password === enteredPass) {
+      document.getElementById("payments").style.display = "block";
+      alert("تم الدخول كمسؤول");
+    } else {
+      alert("كلمة مرور غير صحيحة");
+    }
+  }).catch(err => {
+    console.error("فشل التحقق من كلمة المرور", err);
+    alert("حدث خطأ أثناء التحقق");
+  });
+}
+</script>
+<style>
+#whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #25d366;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  text-decoration: none;
+  z-index: 1000;
+}
+#whatsapp-float:hover {
+  background: #1ebd5a;
+}
+</style>
+<a href="https://wa.me/23599987837" id="whatsapp-float" target="_blank">واتساب</a>
+<script>
+function loginWithGoogle() {
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider).then(result => {
+    alert("تم تسجيل الدخول عبر Google: " + result.user.displayName);
+  }).catch(error => {
+    alert("فشل تسجيل الدخول عبر Google");
+    console.error(error);
+  });
+}
+
+function loginWithFacebook() {
+  const provider = new firebase.auth.FacebookAuthProvider();
+  firebase.auth().signInWithPopup(provider).then(result => {
+    alert("تم تسجيل الدخول عبر Facebook: " + result.user.displayName);
+  }).catch(error => {
+    alert("فشل تسجيل الدخول عبر Facebook");
+    console.error(error);
+  });
+}
+</script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { getAuth, GoogleAuthProvider, FacebookAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBGJ4yTFdFsgcs46fb4Uy96O2i8Az1kbus",
+    authDomain: "electronicsmarket-95db5.firebaseapp.com",
+    projectId: "electronicsmarket-95db5",
+    storageBucket: "electronicsmarket-95db5.firebasestorage.app",
+    messagingSenderId: "559298034101",
+    appId: "1:559298034101:web:e38d0d1181a6e8ebde01fc",
+    measurementId: "G-Z5MGPWT6CN"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+  const analytics = getAnalytics(app);
+
+  window.firebase = {
+    firestore: db,
+    auth: auth,
+    GoogleAuthProvider,
+    FacebookAuthProvider,
+    signInWithPopup
+  };
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const indexContainer = document.getElementById("new-products");
+  if (indexContainer) {
+    indexContainer.innerHTML = "<p>...جاري تحميل المنتجات</p>";
+    firebase.firestore().collection("products").orderBy("timestamp", "desc").limit(5).get().then(snapshot => {
+      indexContainer.innerHTML = "";
+      snapshot.forEach(doc => {
+        const p = doc.data();
+        const card = document.createElement("div");
+        card.className = "product";
+        card.addEventListener("click", () => showProductDetails(p.name, p.desc, p.price, p.image, doc.id));
+        firebase.firestore().collection("products").doc(doc.id).get().then(docDetail => {
+        const data = docDetail.data();
+        let starsHtml = "";
+        if (data.reviews && data.reviews.length > 0) {
+          const totalStars = data.reviews.reduce((sum, r) => sum + r.stars, 0);
+          const avgStars = Math.round(totalStars / data.reviews.length);
+          starsHtml = "⭐".repeat(avgStars) + ` (${data.reviews.length})`;
+        }
+        card.innerHTML = `
+          ${p.image ? '<img src="' + p.image + '" style="max-width:100px;"><br>' : ''}
+          <strong>${p.name}</strong><br>${p.desc}<br>السعر: ${p.price} ريال
+        `;
+        indexContainer.appendChild(card);
+      });
+    }).catch(err => {
+      indexContainer.innerHTML = "<p>تعذر تحميل المنتجات</p>";
+      console.error(err);
+    });
+  }
+});
+</script>
+<script>
+function addProduct() {
+  const name = document.getElementById("name").value;
+  const desc = document.getElementById("desc").value;
+  const price = document.getElementById("price").value;
+  const imageFile = document.getElementById("image").files[0];
+
+  if (editingId) {
+    db.collection("products").doc(editingId).update({
+      name, desc, price: parseFloat(price)
+    }).then(() => {
+      alert("تم تحديث المنتج");
+      editingId = null;
+      loadProducts();
+    });
+    resetForm();
+  } else if (imageFile) {
+    const ref = firebase.storage().ref('product_images/' + Date.now() + '_' + imageFile.name);
+    ref.put(imageFile).then(snapshot => snapshot.ref.getDownloadURL()).then(url => {
+      db.collection("products").add({
+        name,
+        desc,
+        price: parseFloat(price),
+        image: url,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp()
+      }).then(() => {
+        alert("تم حفظ المنتج مع الصورة");
+        loadProducts();
+      });
+    });
+    resetForm();
+  } else {
+    alert("الرجاء اختيار صورة للمنتج.");
+  }
+}
+</script>
+<script>
+function loadSortedProducts() {
+  const productsList = document.getElementById("products-list");
+  const sortValue = document.getElementById("sort-products").value;
+  let query = firebase.firestore().collection("products");
+
+  if (sortValue === "timestamp_desc") {
+    query = query.orderBy("timestamp", "desc");
+  } else if (sortValue === "price_asc") {
+    query = query.orderBy("price", "asc");
+  } else if (sortValue === "price_desc") {
+    query = query.orderBy("price", "desc");
+  }
+
+  productsList.innerHTML = "<p>...جاري تحميل المنتجات</p>";
+
+  query.get().then(snapshot => {
+    productsList.innerHTML = "";
+    snapshot.forEach(doc => {
+      const p = doc.data();
+      const card = document.createElement("div");
+      card.className = "product";
+      card.addEventListener("click", () => showProductDetails(p.name, p.desc, p.price, p.image, doc.id));
+        firebase.firestore().collection("products").doc(doc.id).get().then(docDetail => {
+        const data = docDetail.data();
+        let starsHtml = "";
+        if (data.reviews && data.reviews.length > 0) {
+          const totalStars = data.reviews.reduce((sum, r) => sum + r.stars, 0);
+          const avgStars = Math.round(totalStars / data.reviews.length);
+          starsHtml = "⭐".repeat(avgStars) + ` (${data.reviews.length})`;
+        }
+        card.innerHTML = `
+        ${p.image ? '<img src="' + p.image + '" style="max-width:100px;"><br>' : ''}
+        <strong>${p.name}</strong><br>${p.desc}<br>السعر: ${p.price} ريال
+      `;
+      productsList.appendChild(card);
+      });
+    });
+  });
+}
+</script>
+<script>
+function addProduct() {
+  const name = document.getElementById("name").value;
+  const desc = document.getElementById("desc").value;
+  const price = document.getElementById("price").value;
+  const imageFile = document.getElementById("image").files[0];
+  const user = firebase.auth().currentUser;
+
+  if (!user) {
+    alert("يجب تسجيل الدخول");
+    return;
+  }
+
+  if (imageFile) {
+    const ref = firebase.storage().ref('product_images/' + Date.now() + '_' + imageFile.name);
+    ref.put(imageFile).then(snapshot => snapshot.ref.getDownloadURL()).then(url => {
+      firebase.firestore().collection("products").add({
+        name,
+        desc,
+        price: parseFloat(price),
+        image: url,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        userId: user.uid,
+        userEmail: user.email
+      }).then(() => {
+        alert("تم حفظ المنتج");
+        loadSortedProducts();
+      });
+    });
+    resetForm();
+  } else {
+    alert("الرجاء اختيار صورة للمنتج.");
+  }
+}
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("product-form");
+  const logoutBtn = document.getElementById("logout-btn");
+  if (form) {
+    form.style.display = "block";
+    if (logoutBtn) logoutBtn.style.display = "inline-block";
+  }
+});
+
+
+function logoutUser() {
+  firebase.auth().signOut().then(() => {
+    alert("تم تسجيل الخروج");
+    location.reload();
+  });
+}
+</script>
+<script>
+let isArabic = true;
+
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+}
+
+function toggleLang() {
+  isArabic = !isArabic;
+  document.body.dir = isArabic ? "rtl" : "ltr";
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    el.innerText = isArabic ? el.dataset.ar : el.dataset.en;
+  });
+}
+</script>
+<script>
+function resetForm() {
+  document.getElementById("name").value = "";
+  document.getElementById("desc").value = "";
+  document.getElementById("price").value = "";
+  document.getElementById("image").value = "";
+}
+
+function addProduct() {
+  const name = document.getElementById("name").value;
+  const desc = document.getElementById("desc").value;
+  const price = document.getElementById("price").value;
+  const imageFile = document.getElementById("image").files[0];
+  const user = firebase.auth().currentUser;
+
+  if (!user) {
+    alert("يجب تسجيل الدخول");
+    return;
+  }
+
+  if (imageFile) {
+    const ref = firebase.storage().ref('product_images/' + Date.now() + '_' + imageFile.name);
+    ref.put(imageFile).then(snapshot => snapshot.ref.getDownloadURL()).then(url => {
+      firebase.firestore().collection("products").add({
+        name,
+        desc,
+        price: parseFloat(price),
+        image: url,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        userId: user.uid,
+        userEmail: user.email
+      }).then(() => {
+        alert("تم حفظ المنتج");
+        loadSortedProducts();
+      });
+    });
+    resetForm();
+  } else {
+    alert("الرجاء اختيار صورة للمنتج.");
+  }
+}
+</script>
+<style>
+#toast {
+  visibility: hidden;
+  min-width: 320px;
+  background-color: #1e1e1e;
+  color: #fff;
+  text-align: right;
+  border-radius: 10px;
+  padding: 14px 18px;
+  position: fixed;
+  z-index: 9999;
+  top: 10px;
+  right: 20px;
+  font-size: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transform: translateY(-100%);
+  transition: transform 0.4s ease, opacity 0.4s ease;
+}
+#toast.show {
+  visibility: visible;
+  transform: translateY(0);
+  opacity: 1;
+}
+#toast .close-toast {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: auto;
+}
+.toast-icon-img {
+  width: 24px;
+  height: 24px;
+}
+</style>
+<div id="toast">
+<img alt="icon" class="toast-icon-img" id="toast-icon-img" src="https://cdn-icons-png.flaticon.com/512/190/190411.png"/>
+<span id="toast-msg">تمت إضافة منتج جديد!</span>
+<button class="close-toast" onclick="hideToast()" style=" font-size: 12px; padding: 6px 10px">×</button>
+</div>
+<script>
+let lastProductId = null;
+let knownProductIds = new Set();
+let previousProductStates = new Map();
+
+function playNotificationSound(type) {
+  const url = type === "add"
+    ? "https://cdn.pixabay.com/audio/2023/03/29/audio_b9f5b00dd6.mp3"
+    : type === "delete"
+    ? "https://cdn.pixabay.com/audio/2022/03/15/audio_a84130e8f7.mp3"
+    : "https://cdn.pixabay.com/audio/2022/03/17/audio_7f155312b2.mp3";
+
+  const audio = new Audio(url);
+  audio.play();
+}
+
+function showToast(message, type = "info") {
+  const toast = document.getElementById("toast");
+  const toastMsg = document.getElementById("toast-msg");
+  const toastImg = document.getElementById("toast-icon-img");
+
+  toastMsg.textContent = message;
+  toastImg.src = type === "add"
+    ? "https://cdn-icons-png.flaticon.com/512/845/845646.png"
+    : type === "delete"
+    ? "https://cdn-icons-png.flaticon.com/512/1828/1828843.png"
+    : type === "edit"
+    ? "https://cdn-icons-png.flaticon.com/512/1250/1250615.png"
+    : "https://cdn-icons-png.flaticon.com/512/190/190411.png";
+
+  toast.className = "show";
+  setTimeout(() => { hideToast(); }, 6000);
+}
+
+function hideToast() {
+  const toast = document.getElementById("toast");
+  toast.className = toast.className.replace("show", "");
+}
+
+function isProductChanged(id, newData) {
+  const oldData = previousProductStates.get(id);
+  if (!oldData) return false;
+  return (
+    oldData.name !== newData.name ||
+    oldData.desc !== newData.desc ||
+    oldData.price !== newData.price ||
+    oldData.image !== newData.image
+  );
+}
+
+function displayUploadedProducts() {
+  const container = document.getElementById("uploaded-products");
+  firebase.firestore().collection("products").orderBy("timestamp", "desc").limit(10).get().then(snapshot => {
+    const newItems = [];
+    const currentIds = new Set();
+    const editedItems = [];
+
+    container.innerHTML = "";
+    snapshot.forEach((doc, index) => {
+      const p = doc.data();
+      currentIds.add(doc.id);
+
+      if (!knownProductIds.has(doc.id)) {
+        newItems.push(doc.id);
+      } else if (isProductChanged(doc.id, p)) {
+        editedItems.push(doc.id);
+      }
+
+      knownProductIds.add(doc.id);
+      previousProductStates.set(doc.id, { ...p });
+
+      const card = document.createElement("div");
+      card.className = "product";
+      card.addEventListener("click", () => showProductDetails(p.name, p.desc, p.price, p.image, doc.id));
+        firebase.firestore().collection("products").doc(doc.id).get().then(docDetail => {
+        const data = docDetail.data();
+        let starsHtml = "";
+        if (data.reviews && data.reviews.length > 0) {
+          const totalStars = data.reviews.reduce((sum, r) => sum + r.stars, 0);
+          const avgStars = Math.round(totalStars / data.reviews.length);
+          starsHtml = "⭐".repeat(avgStars) + ` (${data.reviews.length})`;
+        }
+        card.innerHTML = `
+        ${p.image ? '<img src="${p.image}" style="max-width:100px;"><br>' : ''}
+        <strong>${p.name}</strong><br>
+        ${p.desc}<br>
+        السعر: ${p.price} ريال
+      `;
+      container.appendChild(card);
+    });
+
+    const deletedItems = [...previousProductStates.keys()].filter(id => !currentIds.has(id));
+    previousProductStates = new Map([...previousProductStates].filter(([id]) => currentIds.has(id)));
+
+    if (newItems.length > 0 && lastProductId !== null) {
+      playNotificationSound("add");
+      showToast(`تمت إضافة ${newItems.length} منتج${newItems.length > 1 ? 'ات' : ''} جديد${newItems.length > 1 ? 'ة' : ''}!`, "add");
+      logActivity(`إضافة ${newItems.length} منتج جديد`);
+    }
+
+    if (deletedItems.length > 0) {
+      playNotificationSound("delete");
+      showToast(`تم حذف ${deletedItems.length} منتج${deletedItems.length > 1 ? 'ات' : ''}.`, "delete");
+      logActivity(`حذف ${deletedItems.length} منتج`);
+    }
+
+    if (editedItems.length > 0) {
+      playNotificationSound("edit");
+      showToast(`تم تعديل ${editedItems.length} منتج${editedItems.length > 1 ? 'ات' : ''}.`, "edit");
+      logActivity(`تعديل ${editedItems.length} منتج`);
+    }
+
+    if (snapshot.docs.length > 0) {
+      lastProductId = snapshot.docs[0].id;
+    }
+  }).catch(err => {
+    container.innerHTML = "<p>حدث خطأ أثناء تحميل المنتجات</p>";
+    console.error(err);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  displayUploadedProducts();
+  setInterval(displayUploadedProducts, 60000);
+});
+</script>
+<div id="activity-log" style="margin: 40px 20px; padding: 20px; background: #f8f9fa; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+<h3>سجل النشاطات</h3>
+<ul id="activity-list" style="list-style: none; padding: 0;"></ul>
+</div>
+<script>
+function logActivity(message) {
+  const list = document.getElementById("activity-list");
+  const li = document.createElement("li");
+  li.textContent = `${new Date().toLocaleTimeString()} - ${message}`;
+  li.style.marginBottom = "8px";
+  list.prepend(li); // latest on top
+}
+</script>
+<div id="cloud-activity-log" style="margin: 40px 20px; padding: 20px; background: #eef1f4; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+<h3>سجل النشاطات المحفوظة</h3>
+<div style="margin-bottom: 15px;">
+<label for="filter-type">تصفية حسب النوع:</label>
+<select id="filter-type" onchange="loadCloudActivityLog()">
+<option value="all">الكل</option>
+<option value="إضافة">إضافة</option>
+<option value="تعديل">تعديل</option>
+<option value="حذف">حذف</option>
+</select>
+</div>
+<ul id="cloud-activity-list" style="list-style: none; padding: 0;"></ul>
+</div>
+<script>
+function loadCloudActivityLog() {
+  const list = document.getElementById("cloud-activity-list");
+  list.innerHTML = "<li>...تحميل السجل</li>";
+  firebase.firestore().collection("activity_log").orderBy("timestamp", "desc").limit(20).get().then(snapshot => {
+    list.innerHTML = "";
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const li = document.createElement("li");
+      const time = data.timestamp?.toDate().toLocaleString() || "بدون وقت";
+      li.textContent = `${time} - (${data.userId}) ${data.message}`;
+      li.style.marginBottom = "8px";
+      list.appendChild(li);
+    });
+  }).catch(err => {
+    list.innerHTML = "<li>حدث خطأ أثناء تحميل السجل</li>";
+    console.error("Failed to load activity log:", err);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadCloudActivityLog();
+});
+</script>
+<script>
+function loadCloudActivityLog() {
+  const list = document.getElementById("cloud-activity-list");
+  list.innerHTML = "<li>...تحميل السجل</li>";
+  firebase.firestore().collection("activity_log").orderBy("timestamp", "desc").limit(20).get().then(snapshot => {
+    list.innerHTML = "";
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const time = data.timestamp?.toDate().toLocaleString() || "بدون وقت";
+      const li = document.createElement("li");
+      li.textContent = `${time} - (${data.userId}) ${data.message}`;
+      li.style.marginBottom = "8px";
+      list.appendChild(li);
+    });
+  }).catch(err => {
+    list.innerHTML = "<li>حدث خطأ أثناء تحميل السجل</li>";
+    console.error("Failed to load activity log:", err);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadCloudActivityLog();
+  setInterval(loadCloudActivityLog, 60000); // تحديث كل دقيقة
+});
+</script>
+<script>
+function loadCloudActivityLog() {
+  const list = document.getElementById("cloud-activity-list");
+  const filter = document.getElementById("filter-type")?.value || "all";
+  list.innerHTML = "<li>...تحميل السجل</li>";
+
+  firebase.firestore().collection("activity_log").orderBy("timestamp", "desc").limit(50).get().then(snapshot => {
+    list.innerHTML = "";
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const time = data.timestamp?.toDate().toLocaleString() || "بدون وقت";
+      const message = data.message || "";
+      if (filter !== "all" && !message.includes(filter)) return;
+
+      const li = document.createElement("li");
+      li.textContent = `${time} - (${data.userId}) ${message}`;
+      li.style.marginBottom = "8px";
+      list.appendChild(li);
+    });
+  }).catch(err => {
+    list.innerHTML = "<li>حدث خطأ أثناء تحميل السجل</li>";
+    console.error("Failed to load activity log:", err);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadCloudActivityLog();
+  setInterval(loadCloudActivityLog, 60000);
+});
+</script>
+<script>
+function exportLogToCSV() {
+  firebase.firestore().collection("activity_log").orderBy("timestamp", "desc").limit(100).get().then(snapshot => {
+    let csvContent = "data:text/csv;charset=utf-8,Time,User ID,Message\n";
+
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      const time = data.timestamp?.toDate().toLocaleString() || "بدون وقت";
+      const userId = data.userId || "مجهول";
+      const message = data.message || "";
+      csvContent += `"${time}","${userId}","${message}"\n`;
+    });
+
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "activity_log.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  });
+}
+</script>
+<script>
+function resetSettings() {
+  document.body.classList.remove("dark-mode");
+  isArabic = true;
+  document.body.dir = "rtl";
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    el.innerText = el.dataset.ar;
+  });
+}
+</script>
+<script>
+function applySavedSettings() {
+  const lang = localStorage.getItem("lang") || "ar";
+  const dark = localStorage.getItem("dark") === "true";
+
+  isArabic = lang === "ar";
+  document.body.dir = isArabic ? "rtl" : "ltr";
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    el.innerText = isArabic ? el.dataset.ar : el.dataset.en;
+  });
+
+  if (dark) {
+    document.body.classList.add("dark-mode");
+  }
+}
+
+function toggleLang() {
+  isArabic = !isArabic;
+  document.body.dir = isArabic ? "rtl" : "ltr";
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    el.innerText = isArabic ? el.dataset.ar : el.dataset.en;
+  });
+  localStorage.setItem("lang", isArabic ? "ar" : "en");
+}
+
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+  localStorage.setItem("dark", document.body.classList.contains("dark-mode"));
+}
+
+function resetSettings() {
+  document.body.classList.remove("dark-mode");
+  isArabic = true;
+  document.body.dir = "rtl";
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    el.innerText = el.dataset.ar;
+  });
+  localStorage.removeItem("lang");
+  localStorage.removeItem("dark");
+}
+
+document.addEventListener("DOMContentLoaded", applySavedSettings);
+</script>
+<div id="confirm-toast" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+background: #28a745; color: white; padding: 10px 20px; border-radius: 8px;
+font-size: 14px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); display: none; z-index: 9999;"></div>
+<script>
+function playSwitchSound() {
+  const audio = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_bff1cde7a4.mp3");
+  audio.play();
+}
+
+function showConfirmToast(msg) {
+  const toast = document.getElementById("confirm-toast");
+  toast.textContent = msg;
+  toast.style.display = "block";
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 2500);
+}
+
+function applySavedSettings() {
+  const lang = localStorage.getItem("lang") || "ar";
+  const dark = localStorage.getItem("dark") === "true";
+
+  isArabic = lang === "ar";
+  document.body.dir = isArabic ? "rtl" : "ltr";
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    el.innerText = isArabic ? el.dataset.ar : el.dataset.en;
+  });
+
+  if (dark) {
+    document.body.classList.add("dark-mode");
+  }
+}
+
+function toggleLang() {
+  isArabic = !isArabic;
+  document.body.dir = isArabic ? "rtl" : "ltr";
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    el.innerText = isArabic ? el.dataset.ar : el.dataset.en;
+  });
+  localStorage.setItem("lang", isArabic ? "ar" : "en");
+  playSwitchSound();
+  showConfirmToast("تم تغيير اللغة");
+}
+
+function toggleDarkMode() {
+  const isDark = document.body.classList.toggle("dark-mode");
+  localStorage.setItem("dark", isDark);
+  playSwitchSound();
+  showConfirmToast(isDark ? "تم تفعيل الوضع الليلي" : "تم إيقاف الوضع الليلي");
+}
+
+function resetSettings() {
+  document.body.classList.remove("dark-mode");
+  isArabic = true;
+  document.body.dir = "rtl";
+  document.querySelectorAll('[data-ar]').forEach(el => {
+    el.innerText = el.dataset.ar;
+  });
+  localStorage.removeItem("lang");
+  localStorage.removeItem("dark");
+  playSwitchSound();
+  showConfirmToast("تمت إعادة الإعدادات");
+}
+
+document.addEventListener("DOMContentLoaded", applySavedSettings);
+</script>
+<script>
+firebase.auth().onAuthStateChanged(user => {
+  if (!user) return;
+  const isAdmin = user.email === "walmacki235@gmail.com"; // عدل البريد لو لزم
+  if (isAdmin) {
+    const badge = document.getElementById("io-badge");
+    
+    if (badge) badge.style.display = "block";
+    const welcome = document.getElementById("admin-welcome");
+    if (welcome) welcome.style.display = "block";
+    
+  }
+});
+</script>
+<script>
+  function scrollToCloudLog() {
+    const el = document.getElementById("cloud-activity-log");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+</script>
+<script>
+  function toggleAddProduct() {
+    const box = document.getElementById("add-product-box");
+    if (box) {
+      const isVisible = box.style.display === "block";
+      box.style.display = isVisible ? "none" : "block";
+      if (!isVisible) box.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const sections = document.querySelectorAll("section");
+  sections.forEach(section => {
+    section.style.display = section.id === "login" ? "block" : "none";
+  });
+});
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const allowedAdmins = [
+    "walmacki235@gmail.com",
+    "hamzamacki235@gmail.com",
+    "hamza2maki235@gmail.com"
+  ];
+
+  firebase.auth().onAuthStateChanged(user => {
+    if (!user) {
+      redirectToHome();
+      return;
+    }
+
+    const isAdmin = allowedAdmins.includes(user.email);
+    if (!isAdmin) {
+      alert("أنت غير مصرح لك بالدخول إلى لوحة الإدارة.");
+      redirectToHome();
+    } else {
+      const badge = document.getElementById("io-badge");
+      if (badge) badge.style.display = "block";
+      const welcome = document.getElementById("admin-welcome");
+      if (welcome) welcome.style.display = "block";
+    }
+  });
+
+  function redirectToHome() {
+    const adminSection = document.getElementById("admin");
+    const productBox = document.getElementById("add-product-box");
+    const productsSection = document.getElementById("products");
+    if (adminSection) adminSection.style.display = "none";
+    if (productBox) productBox.style.display = "none";
+    if (productsSection) productsSection.style.display = "none";
+    window.location.hash = "#index";
+  }
+});
+</script>
+
+
+<!-- ✅ نافذة عرض تفاصيل المنتج -->
+<div id="product-modal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span onclick="closeModal()" style="float:right; cursor:pointer; font-size: 20px;">×</span>
+    <img id="modal-img" src="" style="max-width:100%; border-radius:10px;"><br><br>
+    <h3 id="modal-name" style="margin:0;"></h3>
+    <p id="modal-desc"></p>
+    <strong id="modal-price"></strong><br><br>
+    <button onclick="addToCart()" style="padding:10px 20px; border-radius:6px; background:#28a745; color:white;">🛒 أضف للعربة</button>
+  </div>
+</div>
+
+
+<script>
+// ✅ عرض نافذة التفاصيل
+function showProductDetails(name, desc, price, image) {
+  document.getElementById("modal-img").src = image;
+  document.getElementById("modal-name").innerText = name;
+  document.getElementById("modal-desc").innerText = desc;
+  document.getElementById("modal-price").innerText = "السعر: " + price + " ريال";
+  document.getElementById("product-modal").style.display = "flex";
+}
+
+function closeModal() {
+  document.getElementById("product-modal").style.display = "none";
+}
+
+// ✅ تنبيه المستخدم
+function notifyUser(title, body) {
+  if ("Notification" in window) {
+    if (Notification.permission === "granted") {
+      new Notification(title, { body });
+    } else if (Notification.permission !== "denied") {
+      Notification.requestPermission().then(permission => {
+        if (permission === "granted") {
+          new Notification(title, { body });
+        }
+      });
+    }
+  }
+}
+</script>
+
+
+<script>
+let currentProductId = null; // لتتبع المنتج الحالي عند فتح المودال
+
+function showProductDetails(name, desc, price, image, id) {
+  currentProductId = id;
+  document.getElementById("modal-img").src = image;
+  document.getElementById("modal-name").innerText = name;
+  document.getElementById("modal-desc").innerText = desc;
+  document.getElementById("modal-price").innerText = "السعر: " + price + " ريال";
+  document.getElementById("product-modal").style.display = "flex";
+  loadReviews(id);
+}
+
+function submitReview(e) {
+  e.preventDefault();
+  const stars = parseInt(document.getElementById("review-stars").value);
+  const comment = document.getElementById("review-comment").value;
+  const user = firebase.auth().currentUser;
+
+  if (!user) {
+    alert("يجب تسجيل الدخول أولاً لإضافة تقييم.");
+    return;
+  }
+
+  const review = {
+    user: user.email,
+    stars,
+    comment,
+    timestamp: new Date()
+  };
+
+  firebase.firestore().collection("products").doc(currentProductId)
+    .update({
+      reviews: firebase.firestore.FieldValue.arrayUnion(review)
+    }).then(() => {
+      document.getElementById("review-form").reset();
+      loadReviews(currentProductId);
+    });
+}
+
+function loadReviews(productId) {
+  const container = document.getElementById("reviews-container");
+  container.innerHTML = "...تحميل التقييمات";
+  firebase.firestore().collection("products").doc(productId).get().then(doc => {
+    const data = doc.data();
+    const reviews = data.reviews || [];
+    if (reviews.length === 0) {
+      container.innerHTML = "<p>لا توجد تقييمات بعد.</p>";
+      return;
+    }
+
+    let total = 0;
+    container.innerHTML = "<strong>التقييمات:</strong><br>";
+    reviews.forEach(r => {
+      total += r.stars;
+      container.innerHTML += `
+        <div style="background:#f1f1f1; padding:6px; margin:6px 0; border-radius:6px;">
+          <strong>${"⭐".repeat(r.stars)}</strong> (${r.user})<br>
+          ${r.comment}
+        </div>
+      `;
+    });
+
+    const avg = (total / reviews.length).toFixed(1);
+    container.innerHTML = `<p>⭐ متوسط التقييم: ${avg} من 5 (${reviews.length} تقييم)</p>` + container.innerHTML;
+  });
+}
+</script>
+
+
+<script>
+function loginUser(e) {
+  e.preventDefault();
+  const email = document.getElementById("login-email").value;
+  const pass = document.getElementById("login-pass").value;
+
+  firebase.auth().signInWithEmailAndPassword(email, pass).then(user => {
+    alert("تم تسجيل الدخول بنجاح");
+    location.reload();
+  }).catch(err => {
+    alert("فشل تسجيل الدخول: " + err.message);
+    console.error(err);
+  });
+}
+</script>
+
+</body>
+</html>
